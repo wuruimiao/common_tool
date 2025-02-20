@@ -5,9 +5,10 @@ import subprocess
 import threading
 import time
 from importlib import import_module
-from utils.log import logger
-from utils.errno import Error, OK, TIMEOUT, INTERVAL_SERVER
 import multiprocessing
+
+from common_tool.errno import Error, OK, TIMEOUT, INTERVAL_SERVER
+from common_tool.log import logger
 
 from .plat import is_win, is_linux
 
@@ -71,7 +72,6 @@ def sleep(sec: int, at_least: int = None):
     if not at_least:
         at_least = max(sec - 2 * sec // 3, 1)
     sec = random.randint(at_least, sec)
-    # logger.info(f"sleep {interval} {sec}")
     time.sleep(sec)
 
 

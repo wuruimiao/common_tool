@@ -5,7 +5,7 @@ import threading
 # from fcntl import LOCK_EX, LOCK_UN, LOCK_SH, flock
 # import portalocker
 
-from utils.log import logger
+from common_tool.log import logger
 
 
 class Lock:

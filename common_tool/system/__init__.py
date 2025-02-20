@@ -1,2 +1,2 @@
-from .process import *
+from .cmd import *
 from .plat import *

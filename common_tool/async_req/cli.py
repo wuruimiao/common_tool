@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 
 from m3u8.httpclient import HTTPSHandler
 from .header import AntiHeader
-from utils.log import logger
+from common_tool.log import logger
 
 
 class DefaultHTTPClient:

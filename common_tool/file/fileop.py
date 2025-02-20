@@ -7,9 +7,9 @@ from subprocess import call
 from typing import BinaryIO, Callable
 import tempfile
 
-from utils.errno import Error, NO_FILE, OK, COPY_FILE_EXIST, COPY_FILE, FILE_BROKEN
-from utils.log import logger
-from utils.system import is_win
+from common_tool.errno import Error, NO_FILE, OK, COPY_FILE_EXIST, COPY_FILE, FILE_BROKEN
+from common_tool.log import logger
+from common_tool.system import is_win
 
 from ._path import norm_path, get_path_last_part, check_path_exist
 from .filename import is_link, check_file_exist, get_file_path, filepath_in_dir, buff_size, _path_format_is_file

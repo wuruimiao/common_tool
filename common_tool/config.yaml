@@ -1,0 +1,16 @@
+log:
+  - writer: file
+    level: info 
+    writer_config:
+      filename: "info.log"
+      log_path: "log"
+      max_backups: 1
+      max_age: midnight
+      format_config:
+        time_fmt: "%Y-%m-%d %H:%M:%S"
+        fmt: "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)s][%(process)d][%(message)s]"
+#  - writer: console
+#    level: info
+#    format_config:
+#      time_fmt: "%Y-%m-%d %H:%M:%S"
+#      fmt: "[%(asctime)s][%(levelname)s][%(filename)s:%(lineno)s][%(process)d][%(message)s]"

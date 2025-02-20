@@ -3,8 +3,8 @@ import os
 
 import yaml
 
-from utils.errno import Error, MISS_JSON, OK, BROKEN_JSON
-from utils.log import logger
+from common_tool.errno import Error, MISS_JSON, OK, BROKEN_JSON
+from common_tool.log import logger
 
 from ._path import norm_path
 from .filename import check_file_exist

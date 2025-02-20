@@ -2,8 +2,8 @@ import os
 import shutil
 import zipfile
 
-from utils.errno import Error, MISS_ZIP, BROKEN_ZIP, OK
-from utils.log import logger
+from common_tool.errno import Error, MISS_ZIP, BROKEN_ZIP, OK
+from common_tool.log import logger
 
 from ._path import get_file_path
 from .filename import check_file_exist

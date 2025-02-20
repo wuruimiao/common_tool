@@ -1,7 +1,7 @@
 import os
 import time
 import psutil
-from utils.log import logger
+from common_tool.log import logger
 
 
 class IOController:

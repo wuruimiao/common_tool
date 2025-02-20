@@ -4,9 +4,9 @@ from io import BytesIO
 import aiofiles
 import aiohttp
 
-from utils.errno import Error, OK, ASYNC_DOWNLOAD, TIMEOUT
-from utils.log import logger
-from utils.system import DEFAULT_TIMEOUT
+from common_tool.errno import Error, OK, ASYNC_DOWNLOAD, TIMEOUT
+from common_tool.log import logger
+from common_tool.system import DEFAULT_TIMEOUT
 
 from .header import AntiHeader
 
