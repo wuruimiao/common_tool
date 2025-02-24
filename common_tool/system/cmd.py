@@ -80,6 +80,12 @@ def remote_create_file(remote_host, remote_user, remote_file_dir):
     ])
 
 
+def remote_rm_file(remote_host, remote_user, remote_file_dir):
+    return run_cmd([
+        'ssh', f'{remote_user}@{remote_host}', 'rm', '-rf', remote_file_dir
+    ])
+
+
 def remote_file_exist(remote_host, remote_user, remote_file_dir):
     output, ok = run_cmd(['ssh', f'{remote_user}@{remote_host}', 'test', '-f', remote_file_dir,
                           "&&", 'echo', 'File', 'exists', '||', 'echo', "File", 'does', 'not', 'exist'])
