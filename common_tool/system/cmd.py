@@ -68,6 +68,26 @@ def run_cmd(cmd: list[str], env=None, timeout=DEFAULT_TIMEOUT) -> tuple[str, boo
         return out, False
 
 
+def remote_sync_files(local_folder, remote_folder, remote_host, remote_user):
+    return run_cmd([
+        'rsync', '-avzR', local_folder, f'{remote_user}@{remote_host}:{remote_folder}'
+    ])
+
+
+def remote_create_file(remote_host, remote_user, remote_file_dir):
+    return run_cmd([
+        'ssh', f'{remote_user}@{remote_host}', 'touch', remote_file_dir
+    ])
+
+
+def remote_file_exist(remote_host, remote_user, remote_file_dir):
+    output, ok = run_cmd(['ssh', f'{remote_user}@{remote_host}', 'test', '-f', remote_file_dir,
+                          "&&", 'echo', 'File', 'exists', '||', 'echo', "File", 'does', 'not', 'exist'])
+    if not ok:
+        return False
+    return output.strip() == 'File exists'
+
+
 def sleep(sec: int, at_least: int = None):
     if not at_least:
         at_least = max(sec - 2 * sec // 3, 1)
