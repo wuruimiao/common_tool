@@ -90,6 +90,16 @@ def remote_rm_file(remote_host, remote_user, remote_file_dir):
     ])
 
 
+def remote_list_dir(remote_host, remote_user, remote_folder, pattern="*") -> [str]:
+    output, ok = run_cmd([
+        'ssh', f'{remote_user}@{remote_host}', 'ls', f'{remote_folder}/{pattern}'
+    ])
+    if not ok:
+        logger.error(f"Failed to list remote directory: {remote_folder}/{pattern}")
+        return []
+    return output.splitlines()
+
+
 def remote_file_exist(remote_host, remote_user, remote_file_dir):
     output, ok = run_cmd(['ssh', f'{remote_user}@{remote_host}', 'test', '-f', remote_file_dir,
                           "&&", 'echo', 'File', 'exists', '||', 'echo', "File", 'does', 'not', 'exist'])
