@@ -52,7 +52,7 @@ def run_cmd(cmd: list[str], env=None, timeout=DEFAULT_TIMEOUT) -> tuple[str, boo
             encoding="utf-8",
         )
         out = out.replace("\r\n", "\n")
-        logger.info(f"{cmd} output={out}")
+        logger.debug(f"{cmd} output={out}")
         return out, True
     except subprocess.CalledProcessError as e:
         out = e.output
