@@ -69,8 +69,9 @@ def run_cmd(cmd: list[str], env=None, timeout=DEFAULT_TIMEOUT) -> tuple[str, boo
 
 
 def remote_sync_files(local_folder, remote_folder, remote_host, remote_user):
+    base_name = os.path.basename(local_folder.rstrip('/'))
     return run_cmd([
-        'rsync', '-avzR', local_folder, f'{remote_user}@{remote_host}:{remote_folder}'
+        'rsync', '-avz', '--no-relative', local_folder, f'{remote_user}@{remote_host}:{remote_folder}/{base_name}'
     ])
 
 

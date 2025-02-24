@@ -183,6 +183,10 @@ class _MultiM:
         self._t: dict[str, Task] = {}
         self._rt: dict[int, tuple[Task, Thread]] = {}
         self._killer: Union[GracefulKiller, None] = None
+        self._auto_restart = False
+
+    def auto_restart(self):
+        self._auto_restart = True
 
     def add_p(self, name, handler, *args, **kwargs):
         if name in self._p:
@@ -314,7 +318,7 @@ class _MultiM:
         self._rp.pop(pid)
 
     def restart_child(self, sig, frame):
-        if self.close:
+        if self.close or not self._auto_restart:
             return
         try:
             cpid = self.get_exit_child_pid()
