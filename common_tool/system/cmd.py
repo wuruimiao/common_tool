@@ -90,14 +90,23 @@ def remote_rm_file(remote_host, remote_user, remote_file_dir):
     ])
 
 
-def remote_list_dir(remote_host, remote_user, remote_folder, pattern="*") -> [str]:
+def remote_list_dir(remote_host, remote_user, remote_folder, pattern="*") -> tuple[[str], [str]]:
     output, ok = run_cmd([
-        'ssh', f'{remote_user}@{remote_host}', 'ls', f'{remote_folder}/{pattern}'
+        'ssh', f'{remote_user}@{remote_host}', 'ls', '-l', f'{remote_folder}/{pattern}'
     ])
     if not ok:
         logger.error(f"Failed to list remote directory: {remote_folder}/{pattern}")
-        return []
-    return output.splitlines()
+        return [], []
+    files = []
+    dirs = []
+
+    for line in output.splitlines():
+        if line.startswith('d'):
+            dirs.append(line.split()[-1])
+        else:
+            files.append(line.split()[-1])
+
+    return files, dirs
 
 
 def remote_file_exist(remote_host, remote_user, remote_file_dir):
