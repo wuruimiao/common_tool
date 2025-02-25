@@ -68,13 +68,30 @@ def run_cmd(cmd: list[str], env=None, timeout=DEFAULT_TIMEOUT) -> tuple[str, boo
         return out, False
 
 
-def sync_files(local_folder, remote_folder, remote_host: str = "", remote_user: str = ""):
-    base_name = os.path.basename(local_folder.rstrip('/'))
-    remote = f'{remote_folder}/{base_name}'
+def sync_files(from_dir, to_dir, to_remote: bool = True, remote_host: str = "", remote_user: str = ""):
+    """
+    :param from_dir: 源路径，文件夹
+    :param to_dir: 目的文件夹
+    :param to_remote: 是否将文件传输到远程
+    :param remote_host: 远程host
+    :param remote_user: 远程用户
+    :return:
+    """
+    # 给目的文件夹增加源路径的最后一部分，比如/to/dir/a.txt，或者/to/dir/a_folder
+    base_name = os.path.basename(from_dir.rstrip('/'))
+    to_dir = f'{to_dir}/{base_name}'
+
     if remote_host and remote_user:
-        remote = f'{remote_user}@{remote_host}:{remote}'
+        if to_remote:
+            # 本地 push 到远程
+            to_dir = f'{remote_user}@{remote_host}:{to_dir}'
+        else:
+            # 从远程 pull 到本地
+            from_dir = f'{remote_user}@{remote_host}:{from_dir}'
+
+    # 执行 rsync 命令
     return run_cmd([
-        'rsync', '-avz', '--no-relative', local_folder, remote
+        'rsync', '-avz', '--no-relative', from_dir, to_dir
     ])
 
 
