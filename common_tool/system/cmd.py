@@ -68,11 +68,11 @@ def run_cmd(cmd: list[str], env=None, timeout=DEFAULT_TIMEOUT) -> tuple[str, boo
         return out, False
 
 
-def sync_files(from_dir, to_dir, to_remote: bool = True, remote_host: str = "", remote_user: str = ""):
+def sync_files(from_dir, to_dir, is_push: bool = True, remote_host: str = "", remote_user: str = ""):
     """
     :param from_dir: 源路径，文件夹
     :param to_dir: 目的文件夹
-    :param to_remote: 是否将文件传输到远程
+    :param is_push: 是否是推送文件
     :param remote_host: 远程host
     :param remote_user: 远程用户
     :return:
@@ -82,7 +82,7 @@ def sync_files(from_dir, to_dir, to_remote: bool = True, remote_host: str = "", 
     to_dir = f'{to_dir}/{base_name}'
 
     if remote_host and remote_user:
-        if to_remote:
+        if is_push:
             # 本地 push 到远程
             to_dir = f'{remote_user}@{remote_host}:{to_dir}'
         else:
